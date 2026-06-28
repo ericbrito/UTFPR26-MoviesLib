@@ -17,7 +17,7 @@ struct MoviePoster: View {
                 case .success(let image):
                     image
                         .resizable()
-                        .scaledToFit()
+                        .scaledToFill()
                 default:
                     placeholder
                 }

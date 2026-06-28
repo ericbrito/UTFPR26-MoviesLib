@@ -8,8 +8,8 @@
 import SwiftUI
 
 enum NavigationType: Hashable {
-    case details
-    case form
+    case details(Movie)
+    case form(Movie?)
 }
 
 @Observable
@@ -23,12 +23,18 @@ struct MoviesView: View {
     var body: some View {
         NavigationStack(path: $router.path) {
             MovieListingView()
+                .navigationTitle("Filmes")
                 .navigationDestination(for: NavigationType.self) { route in
                     switch route {
-                    case .details:
-                        MovieDetailView()
-                    case .form:
-                        MovieFormView()
+                    case .details(let movie):
+                        MovieDetailView(movie: movie)
+                    case .form(let movie):
+                        MovieFormView(movie: movie)
+                    }
+                }
+                .toolbar {
+                    Button("", systemImage: "plus") {
+                        router.path.append(NavigationType.form(nil))
                     }
                 }
         }

@@ -19,7 +19,9 @@ struct MovieListingView: View {
             } else {
                 List {
                     ForEach(viewModel.movies) { movie in
-                        MovieListingRow(movie: movie)
+                        NavigationLink(value: NavigationType.details(movie)) {
+                            MovieListingRow(movie: movie)
+                        }
                     }
                     .onDelete { indexes in
                         Task {
